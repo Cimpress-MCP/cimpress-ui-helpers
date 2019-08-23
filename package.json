@@ -1,0 +1,27 @@
+{
+  "name": "@cimpress-technology/cimpress-ui-reporting-helpers",
+  "version": "1.0.0",
+  "description": "UI reporting helpers",
+  "main": "./lib/index.js",
+  "scripts": {
+    "build": "babel src -d lib --copy-files",
+    "code-check": "eslint --ext .js --ext .jsx src"
+  },
+  "files": [
+    "lib"
+  ],
+  "author": "TrdelnikSquad@cimpress.com",
+  "keywords": [],
+  "license": "MIT",
+  "dependencies": {
+    "@sentry/browser": "^5.6.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "eslint": "^5.16.0",
+    "eslint-config-google": "^0.9.1",
+    "babel-eslint": "^10.0.1"
+  }
+}
