@@ -1,27 +1,22 @@
-image: node
-
-before_script:
-- echo '//artifactory.cimpress.io/artifactory/api/npm/npm-release-local/:_authToken=${ARTIFACTORY_TOKEN}' >> .npmrc
-- nodejs -v
+language: node_js
+node_js:
+- '8'
+dist: trusty
+sudo: false
+install:
 - npm install
-
-stages:
-- build
-- deployment
-
-build job:
-  stage: build
-  script:
-  - npm run code-check
-  - npm run build
-  artifacts:
-    paths:
-    - lib
-
+script:
+- npm run code-check
+- npm run compile
 deploy:
-  stage: deployment
-  only:
-    refs:
-    - master
-  script:
-  - npm publish --registry=https://artifactory.cimpress.io/artifactory/api/npm/npm-release-local/
+  provider: npm
+  email: TrdelnikSquad@cimpress.com
+  skip_cleanup: true
+  api_key:
+    secure: baXtpoXbMIHEu23vsxwg2sr5clQq18JIyLzmPsEniok/10mrtM1Jm00Thg0cd/vKYjDvY+vXDrSGBAnq+IsnYcYRugy6fHRctMAde23+btc7Wrpie14w+bD2EP4U3Rm//mJKU4NJwEeOwQAyvOjJ5f2/hF2xePJq4ddUFXflpsyR/Ni10coh1VcYR72UKwdqBtf1/RdRsW6e5dLV7kx7yigVpjhdpNPJFzEJxKLrgChQSqvvkUSAS6L4IC0B7vAabVXAJgI0u49bsHHb3q+kJfrN7ih24pgrguqa66pkeVrTxtTAAM7xW05cCNQUjXVIUYx1w96ZVu0FS54lTxaVt0QKz2CR0Tcv/cZZzinQf03NVyboYLo1PdOiBAuF/Tqv+DpqyCTVRKNL3n1aNWfMkiR4euNb698WPem3Fkgj+hgB4bcOQosNI7BK3poMPoWUVB+FYVe3EhSP3OMQVDBPCm65Z6B44FeM1qMJh3nm10V5umS3rSVGZDuTbTd5HWWNOayVaLFgX9Gljhbn4pog/+XfaDwk6EG6rh+KKTyBmf0SpHc80UB6VswATfdMVgsYDglaL7mkI0eKjVX7wyYOZGlfHJWdnWVjSkTRIjii7XUgWbCDKHjCvUEwuU0h9vsvd6ELUnWDXST3CXF2u93kSx8KVHd930EQ7df97/RpVH8=
+  on:
+    branch: master
+env:
+  global:
+  - secure: UqidEwT1DkCfU4iDVMPdMI1nbtXqdaEyMM7xlKMfKruj2He10e4ThLFrLyCMAQ9yj5NtmZ7tlTkvzGxAZqB3BB43j3DGP2w18TzCncuSyJGQKylfT2hNf7KhmVkFhQor20eJB7I//4cRe5JQpmPaF3QQLEsX3X4Kv21Ge7DRTcHbDvgco5YclrBmbFkA2h1iHkrvMzcW1rFvfNjNkHOunbr0eJh6MmffV75MZgWcOIvM+fuelq48rYf941KAt6y2pYEOBUDh0kqtxnRXX5WRzbYjpQAfnBNtVXokcXddZC/6VDW1skATig6XI3ADwiQ6ZZBeV2SWZSZNJKtUtNcJWthzuEj1mSZxJac80lgUoX8N9bttZp+W4UfYfqnThah6XN5TDwusLqHYrx1smwN4FWs1FlUj243kjG+IkDTq1whcXarl1oX32FbTRpyRcZ+hZh+pmULEujeG6K6ijcgciFeRYQv1TzTzqom2DFVeeSRhkuN47Qli2h2tJhgPdg5g1ZgX97vejHoGMMZChgLvMkAWW1cjw+xy5WIeqgpSi1E+UzslQna1pbHrVkJJLMk5gFQEK5CDre547mD3/w/xfT9YGKB2T9DYBHeKI4mUQ56IQWTPOMra+DeXl0J6D+OAneoDXzC0izsENHzN5VXZSRm+HndlRw7hhbxcbl1BckI=
+  - secure: KvZgbiPhSGKipjFb6SJtuhQJ69HSpn/EneU/6hrktvqrVyhVveise5nZsS106H5mvPNJXC0LiCTfRp0Cl19x56mU3FV6oRUWyunADuqNEP7dxOgYQDk83WXne7DIBEtQE6AyHg/ObcNzAn3kgEIBKykUwmnEqOU9xlQ6RLjafKTxXUhWiVo2xwzoSUZGSi4BFtR0+zSuwGJZ6uaSgAZHlBt+C17GmfVPsUXV0xrqM/ygWM1PcZYChUVvolSHLf1kFcquxHqRIBfs0j0SVlu3Vtev2+N+YStZnbGn5azpmT/Cm8N2iDN8YExLJVs1/gCdY0rRJ3fdDf4jxxtsNVYbXSSIKiEPAYbuqxNo+Gn4IlQhbt1oUIMPxGY0u5PZaezUwTyMrO3aW9UGj61b8n8HIQbKK90YN1yu+8bQtKgSjewPv2nOD/A3yQFjRxWqgzQbx3EEybxi+Fnl8e8jNipGGSlqn0T0BJ8CG4WYI93inBzxMAXNCDhGj9aD7qd7cTzpSSpm+fnmZTUDqYzlS+IAsZuqYUjfa+XvDs4gB0IzDH8ueIIpk4Jpf9sgEec1SLBKu5fv0H5/J1+OAlQsok1dg0MAkka54o7P9t+Grw8p2kYLAJLmf+dC/ef39uVJ7QRthnwvra1vZazfDO8Ytl9oP+3Az/RajmSn59h02XVUhTw=
