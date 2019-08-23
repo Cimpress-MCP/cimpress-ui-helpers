@@ -5,17 +5,10 @@ let initialized = false;
 
 /**
  * @param {*} sentrySettings {
- *    @param {*} user_id
  *    @param {*} dsn
- *    @param {*} packageInfoPath
+ *    @param {*} releaseVersion
+ *    @param {*} scope
  * }
- * @param {*} fsSettings {
- *    @param {*} host
- *    @param {*} org
- *    @param {*} namespace
- *    @param {*} reportLocalhost
- * }
- * @param {*} reportingBlacklist
  */
 
 const initSentry = (sentrySettings) => {
@@ -28,17 +21,37 @@ const initSentry = (sentrySettings) => {
     if (isLocalhost()) {
         return;
     }
-    const packageInfo = require(sentrySettings.packageInfoPath || '../package.json');
-
     Sentry.init({
         dsn: sentrySettings.dsn,
-        release: packageInfo.version,
+        release: sentrySettings.releaseVersion,
         attachStacktrace: true,
         debug: true,
     });
 
     Sentry.configureScope((scope) => {
         scope.setLevel(sentrySettings.scope || 'warning');
+    });
+};
+
+/**
+   * @param {Object} profile {
+   *    @property {string} user_id
+   *    @property {string} name
+   *    @property {string} email
+   * }
+*/
+const updateProfile = (profile) => {
+    if (!initialized) {
+        console.error('FullStory not initialized.');
+        return;
+    }
+
+    if (isLocalhost() || !profile) {
+        return;
+    }
+
+    Sentry.configureScope((scope) => {
+        scope.setUser({email: profile.email || profile.user_id});
     });
 };
 
@@ -65,4 +78,5 @@ const reportError = (error, errorInfo) => {
 export {
     initSentry,
     reportError,
+    updateProfile,
 };
