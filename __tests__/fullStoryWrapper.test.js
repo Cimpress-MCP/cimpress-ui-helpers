@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-const FSWrapper = require('../src/index').FSWrapper.default;
+const FSWrapper = require('../src/index').FSWrapper;
 const { mockFSFunction } = require('./src/fullStorySimulator');
 jest.mock('../src/defaultFSFunction', () => (...args) => mockFSFunction(...args));
 

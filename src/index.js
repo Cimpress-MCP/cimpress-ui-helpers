@@ -1,5 +1,5 @@
 import 'regenerator-runtime/runtime';
-import * as FSWrapper from './fullStoryWrapper';
+import FSWrapper from './fullStoryWrapper';
 import * as SentryWrapper from './sentryWrapper';
 
 export {
