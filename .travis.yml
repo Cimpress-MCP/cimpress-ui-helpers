@@ -8,6 +8,7 @@ install:
 script:
 - npm run code-check
 - npm run build
+- npm run test
 deploy:
   provider: npm
   email: TrdelnikSquad@cimpress.com
