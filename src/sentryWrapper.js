@@ -42,11 +42,11 @@ const initSentry = (sentrySettings) => {
 */
 const updateProfile = (profile) => {
   if (!initialized) {
-    console.error('FullStory not initialized.');
+    console.error('Sentry not initialized.');
     return;
   }
 
-  if (isLocalhost() || !profile) {
+  if (isLocalhost() || !profile || (!profile.email && !profile.user_id)) {
     return;
   }
 

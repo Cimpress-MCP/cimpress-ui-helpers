@@ -35,7 +35,7 @@ class FSWrapper {
   }
 
   async tryIdentifySession (profile, reportingUsersBlacklist) {
-    if (!profile) {
+    if (!profile || !profile.user_id) {
       this._warn('A profile is required to identify this session.');
       return false;
     }
