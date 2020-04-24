@@ -35,12 +35,12 @@ class FSWrapper {
   }
 
   async tryIdentifySession (profile, reportingUsersBlacklist) {
-    if (!profile || !profile.user_id) {
-      this._warn('A profile is required to identify this session.');
-      return false;
+    const sProfile = profile || {};
+    if (!sProfile.user_id) {
+      this._warn('Profile or user id are missing.');
     }
 
-    if (reportingUsersBlacklist && reportingUsersBlacklist.includes(profile.user_id)) {
+    if (reportingUsersBlacklist && reportingUsersBlacklist.includes(sProfile.user_id)) {
       this._warn('This session will be ignored by FullStory because the current user is blacklisted.');
       return false;
     }
@@ -55,7 +55,7 @@ class FSWrapper {
     const activeOrg = FSWrapper.getActiveOrg();
     if (!activeOrg) { this._initFs(); }
 
-    return this._setIdentity(profile);
+    return this._setIdentity(sProfile);
   }
 
   splitSession () {
