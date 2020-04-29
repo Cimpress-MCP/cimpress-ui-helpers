@@ -34,6 +34,12 @@ class FSWrapper {
     return true;
   }
 
+/**
+   * @param {Object} profile {
+   *    @property {string} user_id
+   *    @property {string} email
+   * }
+*/
   async tryIdentifySession (profile, reportingUsersBlacklist) {
     const sProfile = profile || {};
     if (!sProfile.user_id) {
