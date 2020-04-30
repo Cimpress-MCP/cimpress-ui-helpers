@@ -41,17 +41,18 @@ const initSentry = (sentrySettings) => {
    * }
 */
 const updateProfile = (profile) => {
+  const prof = profile || {};
   if (!initialized) {
     console.error('Sentry not initialized.');
     return;
   }
 
-  if (isLocalhost() || !profile || (!profile.email && !profile.user_id)) {
+  if (isLocalhost()) {
     return;
   }
 
   Sentry.configureScope((scope) => {
-    scope.setUser({ email: profile.email || profile.user_id });
+    scope.setUser({ email: prof.email || prof.user_id });
   });
 };
 

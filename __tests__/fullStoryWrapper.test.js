@@ -19,12 +19,12 @@ describe('FSWrapper', () => {
     delete window._fs_debug;
   });
   describe('for tryIdentifySession', () => {
-    test('returns false if profile is null', async () => {
+    test('returns true if profile is null', async () => {
       const wrapper = new FSWrapper(FS_SETTINGS);
       const profile = null;
 
       const result = await wrapper.tryIdentifySession(profile);
-      assert(!result);
+      assert(!!result);
     });
 
     test('returns false if user is blacklisted', async () => {
