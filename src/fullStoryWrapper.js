@@ -3,13 +3,13 @@ import defaultFSFunction from './defaultFSFunction';
 
 class FSWrapper {
   constructor (params) {
-    const validParams = [ 'host', 'org', 'namespace', 'debug', 'allowLocalhost']
+    const validParams = ['host', 'org', 'namespace', 'debug', 'allowLocalhost'];
     Object.keys(params)
       .forEach(p => {
         if (!validParams.includes(p)) {
           console.error(`Invalid param ${p} passed to FSWrapper`);
         }
-      })
+      });
     const { host, org, namespace, debug, allowLocalhost } = params;
     this.host = host || 'fullstory.com';
     this.org = org;

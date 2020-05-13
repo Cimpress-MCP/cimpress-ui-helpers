@@ -12,14 +12,15 @@ let initialized = false;
  */
 
 const initSentry = (params) => {
-  const validParams = [ 'dsn', 'releaseVersion', 'scope']
+  const validParams = ['dsn', 'releaseVersion', 'scope'];
   const { dsn, releaseVersion, scope } = params;
+
   Object.keys(params)
     .forEach(p => {
       if (!validParams.includes(p)) {
         console.error(`Invalid param ${p} passed to SentryWrapper`);
       }
-    })
+    });
 
   if (initialized) {
     console.warn('Sentry already initialized.');
