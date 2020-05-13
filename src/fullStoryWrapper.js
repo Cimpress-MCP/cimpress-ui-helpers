@@ -2,7 +2,15 @@ import { isLocalhost } from './utils.js';
 import defaultFSFunction from './defaultFSFunction';
 
 class FSWrapper {
-  constructor ({ host, org, namespace, debug, allowLocalhost }) {
+  constructor (params) {
+    const validParams = ['host', 'org', 'namespace', 'debug', 'allowLocalhost'];
+    Object.keys(params)
+      .forEach(p => {
+        if (!validParams.includes(p)) {
+          console.error(`Invalid param ${p} passed to FSWrapper`);
+        }
+      });
+    const { host, org, namespace, debug, allowLocalhost } = params;
     this.host = host || 'fullstory.com';
     this.org = org;
     this.namespace = namespace || 'FS';

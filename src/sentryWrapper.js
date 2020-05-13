@@ -11,7 +11,17 @@ let initialized = false;
  * }
  */
 
-const initSentry = (sentrySettings) => {
+const initSentry = (params) => {
+  const validParams = ['dsn', 'releaseVersion', 'scope'];
+  const { dsn, releaseVersion, scope } = params;
+
+  Object.keys(params)
+    .forEach(p => {
+      if (!validParams.includes(p)) {
+        console.error(`Invalid param ${p} passed to SentryWrapper`);
+      }
+    });
+
   if (initialized) {
     console.warn('Sentry already initialized.');
     return;
@@ -22,14 +32,14 @@ const initSentry = (sentrySettings) => {
     return;
   }
   Sentry.init({
-    dsn: sentrySettings.dsn,
-    release: sentrySettings.releaseVersion,
+    dsn: dsn,
+    release: releaseVersion,
     attachStacktrace: true,
     debug: true
   });
 
-  Sentry.configureScope((scope) => {
-    scope.setLevel(sentrySettings.scope || 'warning');
+  Sentry.configureScope((s) => {
+    s.setLevel(scope || 'warning');
   });
 };
 
