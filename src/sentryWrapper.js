@@ -69,6 +69,7 @@ const updateProfile = (profile) => {
 const reportError = (error, errorInfo) => {
   if (!initialized) {
     console.error('Sentry is not initialized. Not reporting the error.');
+    console.error(error, errorInfo);
     return;
   }
 
