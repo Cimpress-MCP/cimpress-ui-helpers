@@ -1,6 +1,6 @@
 {
   "name": "cimpress-ui-reporting-helpers",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "UI reporting helpers",
   "main": "./lib/index.js",
   "scripts": {
@@ -25,14 +25,14 @@
   "keywords": [],
   "license": "MIT",
   "dependencies": {
-    "@sentry/browser": "^5.15.5",
-    "regenerator-runtime": "^0.13.3"
+    "@sentry/browser": "^6.3.5",
+    "regenerator-runtime": "^0.13.7"
   },
   "devDependencies": {
-    "@babel/cli": "^7.1.2",
-    "@babel/core": "^7.1.2",
-    "@babel/preset-env": "^7.1.0",
-    "jest": "^24.9.0",
-    "semistandard": "^14.1.0"
+    "@babel/cli": "^7.13.16",
+    "@babel/core": "^7.14.0",
+    "@babel/preset-env": "^7.14.1",
+    "jest": "^26.6.3",
+    "semistandard": "^16.0.0"
   }
 }
